@@ -1,0 +1,67 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Test User",
+      "email": "test@example.com",
+      "password": "password123"
+    },
+    {
+      "name": "kk",
+      "email": "kk@gmail.com",
+      "password": "123457",
+      "id": "2R1Ud0_IVYI"
+    }
+  ],
+  "projects": [
+    {
+      "id": "1",
+      "name": "Website Redesign",
+      "description": "Rebuild the company website with a modern design system and improved UX..",
+      "createdAt": "Apr 2, 2026",
+      "owner_id": "2R1Ud0_IVYI"
+    },
+    {
+      "name": "ff",
+      "description": "ffdghghghg",
+      "created_at": "2026-04-13T15:42:13.473Z",
+      "id": "GBsa_v_ZuTg"
+    },
+    {
+      "name": "fgfgfg",
+      "description": "fgfgffg",
+      "created_at": "2026-04-13T15:42:24.073Z",
+      "id": "tixT1UByarA"
+    },
+    {
+      "name": "dd",
+      "description": "dd",
+      "owner_id": "2R1Ud0_IVYI",
+      "created_at": "2026-04-13T16:44:23.772Z",
+      "id": "cs4q9XU6uq4"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "asas",
+      "description": "asas",
+      "status": "todo",
+      "priority": "medium",
+      "project_id": "1",
+      "created_at": "2026-04-13T16:34:56.044Z",
+      "updated_at": "2026-04-13T16:34:56.044Z",
+      "id": "Bl2jqZhvKXs"
+    },
+    {
+      "title": "letest",
+      "description": "dsdd",
+      "status": "in_progress",
+      "priority": "high",
+      "project_id": "cs4q9XU6uq4",
+      "created_at": "2026-04-13T16:44:42.877Z",
+      "updated_at": "2026-04-13T16:44:42.877Z",
+      "id": "dhOwtxOJcgA"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
