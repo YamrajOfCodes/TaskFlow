@@ -1,10 +1,9 @@
+import { BASE_URL } from "@/lib/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const BASE_URL = "http://localhost:4000";
 
-// ✅ LOGIN
 export const useLogin = () => {
   const queryClient = useQueryClient();
 
@@ -42,7 +41,7 @@ export const useLogin = () => {
   });
 };
 
-// ✅ REGISTER
+
 export const useRegister = () => {
   const queryClient = useQueryClient();
 
@@ -92,7 +91,6 @@ export const useRegister = () => {
   });
 };
 
-// ✅ LOGOUT
 export const useLogout = () => {
   const queryClient = useQueryClient();
 

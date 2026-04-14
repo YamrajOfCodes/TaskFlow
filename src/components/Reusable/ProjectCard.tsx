@@ -17,7 +17,7 @@ function ProjectCard({
 }: {
   project: Project;
   onEdit: (project: Project) => void;
-  onDelete: (id: number) => void;
+  onDelete: (id: any) => void;
 }) {
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -30,7 +30,7 @@ function ProjectCard({
 
   return (
     <>
-      <div className="flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow-md">
+      <div className="flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow-md" key={project.id}>
         <div className="flex items-start justify-between">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-100 text-sm font-semibold text-indigo-700">
             {initials}

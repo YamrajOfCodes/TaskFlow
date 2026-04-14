@@ -1,8 +1,7 @@
+import { BASE_URL } from "@/lib/axios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import toast from "react-hot-toast";
-
-const BASE_URL = "http://localhost:4000";
 
 const getUser = () => {
   return JSON.parse(localStorage.getItem("user") || "{}");
@@ -24,9 +23,7 @@ export const useProjects = () => {
   });
 };
 
-//
-// ✅ CREATE PROJECT
-//
+
 export const useCreateProject = () => {
   const queryClient = useQueryClient();
 
@@ -54,9 +51,6 @@ export const useCreateProject = () => {
   });
 };
 
-//
-// ✅ UPDATE PROJECT
-//
 export const useUpdateProject = () => {
   const queryClient = useQueryClient();
 
@@ -92,14 +86,12 @@ export const useUpdateProject = () => {
   });
 };
 
-//
-// ✅ DELETE PROJECT
-//
+
 export const useDeleteProject = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: string) => {
+    mutationFn: async (id: number) => {
       await axios.delete(`${BASE_URL}/projects/${id}`);
     },
 

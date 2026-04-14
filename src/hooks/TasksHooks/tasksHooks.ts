@@ -1,13 +1,9 @@
+import { BASE_URL } from "@/lib/axios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const BASE_URL = "http://localhost:4000";
-
-//
-// ✅ GET TASKS (by project)
-//
-export const useTasks = (projectId: string) => {
+export const useTasks = (projectId?: string) => {
     console.log(projectId, "Project ID in useTasks hook");
   return useQuery({
     queryKey: ["tasks", projectId],
@@ -21,9 +17,7 @@ export const useTasks = (projectId: string) => {
   });
 };
 
-//
-// ➕ CREATE TASK
-//
+
 export const useCreateTask = () => {
   const queryClient = useQueryClient();
 
@@ -59,9 +53,7 @@ export const useCreateTask = () => {
   });
 };
 
-//
-// ✏️ UPDATE TASK
-//
+
 export const useUpdateTask = () => {
   const queryClient = useQueryClient();
 
@@ -104,9 +96,7 @@ export const useUpdateTask = () => {
   });
 };
 
-//
-// ❌ DELETE TASK
-//
+
 export const useDeleteTask = () => {
   const queryClient = useQueryClient();
 
