@@ -132,4 +132,4 @@ I have no automated tests here. For a production project I'd add Playwright for 
 
 ## Notes
 
-The goal was a complete, working product — not a demo with half the features stubbed out. Auth works, CRUD works, the UI handles edge cases. The code is structured the way I'd structure it on a real team: hooks for data, components for UI, pages for routing. Nothing clever, nothing that would confuse someone reading it for the first time.
+The goal was a complete, working product, not a demo with half the features stubbed out. Auth works, CRUD works, the UI handles edge cases. The code is structured the way I'd structure it on a real team: hooks for data, components for UI, pages for routing. Nothing clever, nothing that would confuse someone reading it for the first time.
