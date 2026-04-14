@@ -2,21 +2,22 @@ import { useEffect, useState } from "react";
 import TaskModal from "../../components/Modals/TaskModal";
 import TaskCard from "../../components/Reusable/TaskCard";
 import { useTasks } from "@/hooks/TasksHooks/tasksHooks";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
+import Loader from "@/components/Reusable/Loader";
 
-type FilterStatus = "all" | "in-progress" | "todo" | "blocked" | "done";
+type FilterStatus = "all" | "in_progress" | "todo" | "blocked" | "done";
 
 const FILTERS: { label: string; value: FilterStatus }[] = [
   { label: "All",         value: "all"         },
-  { label: "In progress", value: "in-progress" },
+  { label: "In progress", value: "in_progress" },
   { label: "To do",       value: "todo"        },
   { label: "Blocked",     value: "blocked"     },
   { label: "Done",        value: "done"        },
 ];
 
 const STATUS_META: Record<string, { label: string; bg: string; text: string }> = {
-  "in-progress": { label: "In progress", bg: "bg-blue-50",   text: "text-blue-700"    },
+  "in_progress": { label: "In progress", bg: "bg-blue-50",   text: "text-blue-700"    },
   "todo":        { label: "To do",       bg: "bg-neutral-100", text: "text-neutral-600" },
   "blocked":     { label: "Blocked",     bg: "bg-red-50",    text: "text-red-700"     },
   "done":        { label: "Done",        bg: "bg-emerald-50", text: "text-emerald-700" },
@@ -30,6 +31,7 @@ const PRIORITY_DOT: Record<string, string> = {
 
 function TaskPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data: tasks = [], isLoading } = useTasks(id);
 
   const [tasksData, setTasksData]       = useState<any[]>([]);
@@ -68,8 +70,9 @@ function TaskPage() {
 
   if (isLoading) {
     return (
-      <div className="flex h-48 items-center justify-center">
-        <div className="h-5 w-5 animate-spin rounded-full border-2 border-neutral-300 border-t-blue-600" />
+      <div className="min-h-screen bg-neutral-50 p-6">
+        <Header />
+        <Loader />
       </div>
     );
   }
@@ -79,7 +82,20 @@ function TaskPage() {
 
       <Header/>
 
-      {/* ── Header ── */}
+      {/* Back Button */}
+      <div className="mb-4">
+        <button
+          onClick={() => navigate('/projects')}
+          className="inline-flex items-center gap-2 text-sm font-medium text-neutral-600
+                     hover:text-neutral-900 transition-colors cursor-pointer"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          Back to Projects
+        </button>
+      </div>
+
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-base font-medium text-neutral-900">Sprint 4 tasks</h2>
@@ -89,7 +105,6 @@ function TaskPage() {
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
-          {/* Search */}
           <div className="relative flex items-center">
             <svg
               width="14" height="14" viewBox="0 0 16 16" fill="none"
@@ -109,12 +124,10 @@ function TaskPage() {
                          focus:ring-2 focus:ring-blue-100"
             />
           </div>
-
-          {/* Add task */}
           <button
             onClick={() => { setSelectedTask(null); setOpen(true); }}
             className="flex h-[34px] items-center gap-1.5 rounded-lg bg-blue-700 px-4
-                       text-sm font-medium text-white transition-colors hover:bg-blue-800"
+                       text-sm font-medium text-white transition-colors hover:bg-blue-800 cursor-pointer"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M7 2v10M2 7h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -124,7 +137,6 @@ function TaskPage() {
         </div>
       </div>
 
-      {/* ── Stat cards ── */}
       <div className="mb-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
         {[
           { label: "Total",       value: stats.total,      color: "text-neutral-900" },
@@ -142,13 +154,12 @@ function TaskPage() {
         ))}
       </div>
 
-      {/* ── Filter pills ── */}
       <div className="mb-5 flex flex-wrap gap-1.5">
         {FILTERS.map(({ label, value }) => (
           <button
             key={value}
             onClick={() => setFilter(value)}
-            className={`rounded-full px-3 py-1 text-xs font-medium transition-all border ${
+            className={`rounded-full border px-3 py-1 text-xs font-medium transition-all cursor-pointer ${
               filter === value
                 ? "border-blue-700 bg-blue-700 text-white"
                 : "border-neutral-200 bg-white text-neutral-500 hover:border-neutral-300 hover:text-neutral-700"
@@ -159,7 +170,6 @@ function TaskPage() {
         ))}
       </div>
 
-      {/* ── Task list ── */}
       {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-neutral-400">
           <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-neutral-100">
@@ -171,54 +181,20 @@ function TaskPage() {
           <p className="text-sm">No tasks here yet</p>
         </div>
       ) : (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-wrap gap-2">
           {filtered.map((task) => (
             <div
               key={task.id}
               onClick={() => { setSelectedTask(task); setOpen(true); }}
-              className="flex cursor-pointer items-start gap-3 rounded-xl border border-neutral-200
-                         bg-white px-4 py-3 transition-colors hover:border-neutral-300"
+              className="flex cursor-pointer items-start gap-3
+                         px-4 py-3 transition-colors hover:border-neutral-300"
             >
-              {/* Text */}
-              <div className="min-w-0 flex-1">
-                <div className="mb-1 flex flex-wrap items-center gap-2">
-                  <span className="text-sm font-medium text-neutral-900">{task.title}</span>
-                  {STATUS_META[task.status] && (
-                    <span
-                      className={`inline-flex items-center rounded-full px-2 py-0.5 text-[11px]
-                                  font-medium ${STATUS_META[task.status].bg} ${STATUS_META[task.status].text}`}
-                    >
-                      {STATUS_META[task.status].label}
-                    </span>
-                  )}
-                </div>
-                <p className="truncate text-xs text-neutral-500">{task.description}</p>
-              </div>
-
-              {/* Meta */}
-              <div className="flex shrink-0 items-center gap-2.5 pl-2">
-                {task.priority && (
-                  <span
-                    title={`Priority: ${task.priority}`}
-                    className={`h-2 w-2 rounded-full ${PRIORITY_DOT[task.priority] ?? "bg-neutral-300"}`}
-                  />
-                )}
-                {task.assignee && (
-                  <div className="flex h-7 w-7 items-center justify-center rounded-full
-                                  border border-neutral-200 bg-neutral-100 text-[11px]
-                                  font-medium text-neutral-600">
-                    {typeof task.assignee === "string"
-                      ? task.assignee.slice(0, 2).toUpperCase()
-                      : task.assignee}
-                  </div>
-                )}
-              </div>
+             <TaskCard task={task} />
             </div>
           ))}
         </div>
       )}
 
-      {/* ── Modal ── */}
       {open && (
         <TaskModal
           projectId={id ?? ""}

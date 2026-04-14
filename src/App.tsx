@@ -3,6 +3,7 @@ import AuthPage from './Pages/Login/Login'
 import {Route,Routes} from "react-router-dom"
 import ProjectsPage from './Pages/Projects/ProjectPage'
 import TaskPage from './Pages/TaksPage/TaskPage'
+import ProtectedRoute from './components/ProtectedRoute'
 
 const App = () => {
   return (
@@ -10,8 +11,16 @@ const App = () => {
       <Routes>
         <Route path="/" element={<AuthPage/>} />
         <Route path="/login" element={<AuthPage/>} />
-        <Route path='/projects' element={<ProjectsPage/>}/>
-        <Route path='/projects/:id' element={<TaskPage/>}/>
+        <Route path='/projects' element={
+          <ProtectedRoute>
+            <ProjectsPage/>
+          </ProtectedRoute>
+        }/>
+        <Route path='/projects/:id' element={
+          <ProtectedRoute>
+            <TaskPage/>
+          </ProtectedRoute>
+        }/>
       </Routes>
     </div>
   )

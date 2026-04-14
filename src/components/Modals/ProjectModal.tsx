@@ -17,8 +17,8 @@ const projectSchema = z.object({
 type ProjectFormValues = z.infer<typeof projectSchema>;
 
 function ProjectModal({ onClose, initialData, isEdit = false }: ModalProps) {
-  const { mutate: createProject } = useCreateProject();
-  const { mutate: updateProject } = useUpdateProject();
+  const { mutateAsync: createProject } = useCreateProject();
+  const { mutateAsync: updateProject } = useUpdateProject();
 
   const {
     register,
@@ -37,12 +37,16 @@ function ProjectModal({ onClose, initialData, isEdit = false }: ModalProps) {
   const descLen = watch("description")?.length ?? 0;
 
   const onSubmit = async (data: ProjectFormValues) => {
-    if (isEdit && initialData?.id) {
-      updateProject({ id: initialData.id, ...data });
-    } else {
-      createProject(data);
+    try {
+      if (isEdit && initialData?.id) {
+        await updateProject({ id: initialData.id, ...data });
+      } else {
+        await createProject(data);
+      }
+      onClose();
+    } catch (error) {
+      // Error toast is already handled by mutation's onError callback
     }
-    onClose();
   };
 
   return (
@@ -86,7 +90,7 @@ function ProjectModal({ onClose, initialData, isEdit = false }: ModalProps) {
             onClick={onClose}
             className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg
                        border border-neutral-200 text-neutral-400 transition-colors
-                       hover:bg-neutral-50 hover:text-neutral-600"
+                       hover:bg-neutral-50 hover:text-neutral-600 cursor-pointer"
           >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
               <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
@@ -168,7 +172,7 @@ function ProjectModal({ onClose, initialData, isEdit = false }: ModalProps) {
               onClick={onClose}
               className="rounded-lg border border-neutral-200 px-4 py-2 text-sm
                          font-medium text-neutral-500 transition-colors
-                         hover:bg-neutral-50 hover:text-neutral-700"
+                         hover:bg-neutral-50 hover:text-neutral-700 cursor-pointer"
             >
               Cancel
             </button>
@@ -177,7 +181,7 @@ function ProjectModal({ onClose, initialData, isEdit = false }: ModalProps) {
               disabled={isSubmitting}
               className="flex items-center gap-2 rounded-lg bg-neutral-900 px-4 py-2
                          text-sm font-medium text-white transition-opacity
-                         hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-40"
+                         hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer"
             >
               {isSubmitting ? (
                 <div className="h-3.5 w-3.5 animate-spin rounded-full border-2

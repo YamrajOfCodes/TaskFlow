@@ -47,13 +47,13 @@ function ConfirmDeleteModal({
         <div className="flex justify-end gap-2">
           <button
             onClick={onCancel}
-            className="rounded-lg border border-gray-200 px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50"
+            className="rounded-lg border border-gray-200 px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
           >
             Cancel
           </button>
           <button
             onClick={onConfirm}
-            className="rounded-lg bg-red-600 px-4 py-1.5 text-sm text-white hover:bg-red-700"
+            className="rounded-lg bg-red-600 px-4 py-1.5 text-sm text-white hover:bg-red-700 cursor-pointer"
           >
             Delete
           </button>

@@ -9,7 +9,7 @@ const PRIORITY_STYLES = {
 
 const STATUS_STYLES: Record<string, string> = {
   "todo":        "bg-gray-100 text-gray-600",
-  "in-progress": "bg-blue-50 text-blue-700",
+  "in_progress": "bg-blue-50 text-blue-700",
   "done":        "bg-emerald-50 text-emerald-700",
   "blocked":     "bg-red-50 text-red-700",
 };
@@ -27,7 +27,7 @@ function TaskCard({ task, onEdit }: any) {
         group relative flex items-start gap-3 rounded-xl border border-neutral-200 md:w-xl
         bg-white px-4 py-3.5 transition-all duration-150
         hover:-translate-y-px hover:border-neutral-300 hover:shadow-sm
-        border-l-[3px] ${styles.card}
+        border-l-[3px] ${styles.card} cursor-pointer
       `}
     >
       {/* Content */}
@@ -56,7 +56,7 @@ function TaskCard({ task, onEdit }: any) {
           title="Edit"
           className="flex h-7 w-7 items-center justify-center rounded-lg border border-neutral-200
                      bg-white text-neutral-400 transition-colors hover:border-blue-200
-                     hover:bg-blue-50 hover:text-blue-600"
+                     hover:bg-blue-50 hover:text-blue-600 cursor-pointer"
         >
           <PencilIcon className="h-3.5 w-3.5" />
         </button>
@@ -65,7 +65,7 @@ function TaskCard({ task, onEdit }: any) {
           title="Delete"
           className="flex h-7 w-7 items-center justify-center rounded-lg border border-neutral-200
                      bg-white text-neutral-400 transition-colors hover:border-red-200
-                     hover:bg-red-50 hover:text-red-600"
+                     hover:bg-red-50 hover:text-red-600 cursor-pointer"
         >
           <TrashIcon className="h-3.5 w-3.5" />
         </button>

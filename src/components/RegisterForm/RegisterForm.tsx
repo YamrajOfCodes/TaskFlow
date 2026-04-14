@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRegister } from "@/hooks/authHooks/authHooks";
 
-// ✅ Zod Schema
 const registerSchema = z
   .object({
     name: z.string().min(1, "Name is required"),
@@ -31,7 +30,6 @@ function RegisterForm({ onSuccess }: { onSuccess?: () => void }) {
     resolver: zodResolver(registerSchema),
   });
 
-  // ✅ Submit handler
   const onSubmit = (data: RegisterValues) => {
     mutate(
       {
@@ -41,8 +39,8 @@ function RegisterForm({ onSuccess }: { onSuccess?: () => void }) {
       },
       {
         onSuccess: () => {
-          reset(); // clear form
-          onSuccess?.(); // optional callback
+          reset();
+          onSuccess?.(); 
         },
       }
     );
@@ -54,7 +52,7 @@ function RegisterForm({ onSuccess }: { onSuccess?: () => void }) {
       noValidate
       className="flex flex-col gap-4"
     >
-      {/* Header */}
+    
       <div>
         <h1 className="text-2xl font-bold text-gray-900">
           Create an account
@@ -64,7 +62,6 @@ function RegisterForm({ onSuccess }: { onSuccess?: () => void }) {
         </p>
       </div>
 
-      {/* Name */}
       <Field
         label="Full Name"
         id="reg-name"
@@ -73,7 +70,6 @@ function RegisterForm({ onSuccess }: { onSuccess?: () => void }) {
         registration={register("name")}
       />
 
-      {/* Email */}
       <Field
         label="Email"
         id="reg-email"
@@ -83,7 +79,6 @@ function RegisterForm({ onSuccess }: { onSuccess?: () => void }) {
         registration={register("email")}
       />
 
-      {/* Password */}
       <Field
         label="Password"
         id="reg-password"
@@ -93,7 +88,6 @@ function RegisterForm({ onSuccess }: { onSuccess?: () => void }) {
         registration={register("password")}
       />
 
-      {/* Confirm Password */}
       <Field
         label="Confirm Password"
         id="reg-confirm"
@@ -103,7 +97,6 @@ function RegisterForm({ onSuccess }: { onSuccess?: () => void }) {
         registration={register("confirmPassword")}
       />
 
-      {/* Submit Button */}
       <button
         type="submit"
         disabled={isPending}

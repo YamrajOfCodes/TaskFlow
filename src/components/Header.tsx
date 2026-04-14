@@ -39,10 +39,8 @@ function Header() {
         <span className="text-sm font-medium text-neutral-900 tracking-tight">Taskflow</span>
       </div>
 
-      {/* Right side */}
       <div className="flex items-center gap-3">
 
-        {/* Avatar + name */}
         <div className="flex items-center gap-2.5">
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 border border-blue-100 text-xs font-medium text-blue-700">
             {initials}
@@ -55,10 +53,8 @@ function Header() {
           </div>
         </div>
 
-        {/* Divider */}
         <div className="h-5 w-px bg-neutral-200" />
 
-        {/* Logout */}
         <button
           type="button"
           onClick={() => logout()}
@@ -66,7 +62,7 @@ function Header() {
           className="flex items-center gap-1.5 rounded-lg border border-neutral-200 bg-white
                      px-3 py-1.5 text-xs font-medium text-neutral-600 transition-colors
                      hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900
-                     disabled:cursor-not-allowed disabled:opacity-40"
+                     disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer"
         >
           {isLoggingOut ? (
             <div className="h-3 w-3 animate-spin rounded-full border border-neutral-400 border-t-transparent" />

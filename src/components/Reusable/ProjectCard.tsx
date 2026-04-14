@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ConfirmDeleteModal from "../Modals/ConfirmationModal";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface Project {
   id: number;
@@ -17,9 +17,11 @@ function ProjectCard({
 }: {
   project: Project;
   onEdit: (project: Project) => void;
-  onDelete: (id: any) => void;
+  onDelete: (id: number) => Promise<void>;
 }) {
   const [showConfirm, setShowConfirm] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const navigate = useNavigate();
 
   const initials = project.name
     .split(" ")
@@ -28,9 +30,21 @@ function ProjectCard({
     .join("")
     .toUpperCase();
 
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Prevent navigation if clicking on buttons
+    if ((e.target as HTMLElement).closest('button')) {
+      return;
+    }
+    navigate(`/projects/${project.id}`);
+  };
+
   return (
     <>
-      <div className="flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow-md" key={project.id}>
+      <div 
+        onClick={handleCardClick}
+        className="flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow-md hover:border-gray-300 cursor-pointer" 
+        key={project.id}
+      >
         <div className="flex items-start justify-between">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-100 text-sm font-semibold text-indigo-700">
             {initials}
@@ -38,8 +52,11 @@ function ProjectCard({
           <div className="flex gap-1">
             {/* Edit button */}
             <button
-              onClick={() => onEdit(project)}
-              className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition hover:bg-blue-50 hover:text-blue-600"
+              onClick={(e) => {
+                e.stopPropagation();
+                onEdit(project);
+              }}
+              className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition hover:bg-blue-50 hover:text-blue-600 cursor-pointer"
               title="Edit project"
             >
               <svg
@@ -58,8 +75,11 @@ function ProjectCard({
             </button>
             {/* Delete button */}
             <button
-              onClick={() => setShowConfirm(true)}
-              className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition hover:bg-red-50 hover:text-red-600"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowConfirm(true);
+              }}
+              className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition hover:bg-red-50 hover:text-red-600 cursor-pointer"
               title="Delete project"
             >
               <svg
@@ -85,7 +105,7 @@ function ProjectCard({
           </div>
         </div>
 
-        <Link to={`/projects/${project.id}`}><div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1">
           <h3 className="text-sm font-semibold text-gray-900">{project.name}</h3>
           <p className="text-sm leading-relaxed text-gray-500">
             {project.description}
@@ -94,7 +114,7 @@ function ProjectCard({
 
         <div className="mt-auto border-t border-gray-100 pt-3">
           <span className="text-xs text-gray-400">Created {project.createdAt}</span>
-        </div></Link>
+        </div>
       </div>
 
       {showConfirm && (

@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Field from "../Reusable/Field";
-import { useLogin } from "../../hooks/authHooks/authHooks"; // ✅ import your hook
+import { useLogin } from "../../hooks/authHooks/authHooks";
 
 const loginSchema = z.object({
   email: z.string().email("Enter a valid email"),
@@ -12,7 +12,7 @@ const loginSchema = z.object({
 type LoginValues = z.infer<typeof loginSchema>;
 
 function LoginForm({ onToast }: { onToast?: (msg: string) => void }) {
-  const { mutate, isPending } = useLogin(); // ✅ use React Query
+  const { mutate, isPending } = useLogin(); 
 
   const {
     register,
@@ -22,11 +22,10 @@ function LoginForm({ onToast }: { onToast?: (msg: string) => void }) {
     resolver: zodResolver(loginSchema),
   });
 
-  // ✅ REAL LOGIN FLOW
   const onSubmit = (data: LoginValues) => {
     mutate(data, {
       onSuccess: () => {
-        onToast?.("Logged in successfully!"); // optional toast
+        onToast?.("Logged in successfully!");
       },
     });
   };
@@ -37,7 +36,6 @@ function LoginForm({ onToast }: { onToast?: (msg: string) => void }) {
       noValidate
       className="flex flex-col gap-4"
     >
-      {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-gray-900">
           Welcome back
@@ -46,8 +44,6 @@ function LoginForm({ onToast }: { onToast?: (msg: string) => void }) {
           Sign in to your account to continue.
         </p>
       </div>
-
-      {/* Email */}
       <Field
         label="Email"
         id="login-email"
@@ -57,7 +53,6 @@ function LoginForm({ onToast }: { onToast?: (msg: string) => void }) {
         registration={register("email")}
       />
 
-      {/* Password */}
       <Field
         label="Password"
         id="login-password"
@@ -67,7 +62,6 @@ function LoginForm({ onToast }: { onToast?: (msg: string) => void }) {
         registration={register("password")}
       />
 
-      {/* Button */}
       <button
         type="submit"
         disabled={isPending}

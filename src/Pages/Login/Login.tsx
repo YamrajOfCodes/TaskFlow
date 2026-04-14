@@ -50,7 +50,7 @@ export default function AuthPage() {
               <button
                 type="button"
                 onClick={() => setView("register")}
-                className="font-medium text-indigo-600 hover:underline"
+                className="font-medium text-indigo-600 hover:underline cursor-pointer"
               >
                 Register
               </button>
@@ -61,7 +61,7 @@ export default function AuthPage() {
               <button
                 type="button"
                 onClick={() => setView("login")}
-                className="font-medium text-indigo-600 hover:underline"
+                className="font-medium text-indigo-600 hover:underline cursor-pointer"
               >
                 Sign in
               </button>

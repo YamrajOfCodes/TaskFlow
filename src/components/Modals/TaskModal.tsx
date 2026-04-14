@@ -139,7 +139,7 @@ function TaskModal({ projectId, task, onClose }: TaskModalProps) {
             onClick={onClose}
             className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg
                        border border-neutral-200 text-neutral-400 transition-colors
-                       hover:bg-neutral-50 hover:text-neutral-600"
+                       hover:bg-neutral-50 hover:text-neutral-600 cursor-pointer"
           >
             <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
               <path d="M1 1l9 9M10 1L1 10" stroke="currentColor"
@@ -202,7 +202,7 @@ function TaskModal({ projectId, task, onClose }: TaskModalProps) {
               onClick={onClose}
               className="rounded-lg border border-neutral-200 px-4 py-2 text-xs
                          font-medium text-neutral-500 transition-colors
-                         hover:bg-neutral-50 hover:text-neutral-700"
+                         hover:bg-neutral-50 hover:text-neutral-700 cursor-pointer"
             >
               Cancel
             </button>
@@ -211,7 +211,7 @@ function TaskModal({ projectId, task, onClose }: TaskModalProps) {
               disabled={isSaving}
               className="flex items-center gap-2 rounded-lg bg-neutral-900 px-4 py-2
                          text-xs font-medium text-white transition-opacity
-                         hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-40"
+                         hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer"
             >
               {isSaving ? (
                 <div className="h-3 w-3 animate-spin rounded-full border-2

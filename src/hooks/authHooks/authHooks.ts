@@ -15,8 +15,12 @@ export const useLogin = () => {
 
       const user = res.data[0];
 
-      if (!user || user.password !== data.password) {
-        throw { response: { status: 401 } };
+      if (!user) {
+        throw { response: { status: 401, data: { message: "Email not found" } } };
+      }
+
+      if (user.password !== data.password) {
+        throw { response: { status: 401, data: { message: "Password is incorrect" } } };
       }
 
       const token = btoa(`${user.id}:${user.email}:${Date.now()}`);
@@ -35,8 +39,9 @@ export const useLogin = () => {
       window.location.href = "/projects";
     },
 
-    onError: () => {
-      toast.error("Invalid email or password");
+    onError: (error: any) => {
+      const message = error?.response?.data?.message || "Login failed";
+      toast.error(message);
     },
   });
 };
