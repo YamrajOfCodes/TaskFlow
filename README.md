@@ -85,8 +85,8 @@ docker compose up --build
 
 **Test credentials**
 ```
-Email:    test@example.com
-Password: password123
+Email:    kk@gmail.com.com
+Password: 123457
 ```
 
 ---
@@ -113,15 +113,20 @@ DELETE  /tasks/:id
 
 ## What I'd Do Differently With More Time
 
-**Real backend** — json-server is fine for mocking but it has no auth, no business logic, and no real query capabilities. I'd replace it with a Node.js + Postgres setup or a lightweight Go service. jwt-based auth with refresh tokens instead of whatever's sitting in localStorage right now.
+**Real backend** 
+json-server is fine for mocking but it has no auth, no business logic, and no real query capabilities. I'd replace it with a Node.js + Postgres setup or a lightweight Go service. jwt-based auth with refresh tokens instead of whatever's sitting in localStorage right now.
 
-**Drag-and-drop kanban** — The current list view works but a board view with `@dnd-kit` would make task management feel more natural. The data model already supports it (status is just a string), it's purely a UI change.
+**Drag-and-drop kanban** 
+The current list view works but a board view with `@dnd-kit` would make task management feel more natural. The data model already supports it (status is just a string), it's purely a UI change.
 
-**Pagination** — Right now everything fetches in one shot. Fine at this scale, breaks at any real scale. TanStack Query's `useInfiniteQuery` makes cursor-based pagination pretty clean.
+**Pagination** 
+Right now everything fetches in one shot. Fine at this scale, breaks at any real scale. TanStack Query's `useInfiniteQuery` makes cursor-based pagination pretty clean.
 
-**Better optimistic updates** — Mutations currently wait for the server before updating the UI. With React Query's `onMutate` you can update the cache immediately and roll back on error. I skipped it to keep things readable but it would make the app feel faster.
+**Better optimistic updates**
+Mutations currently wait for the server before updating the UI. With React Query's `onMutate` you can update the cache immediately and roll back on error. I skipped it to keep things readable but it would make the app feel faster.
 
-**E2E tests** — I have no automated tests here. For a production project I'd add Playwright for critical paths (login, create project, create task) at minimum.
+**E2E tests** 
+I have no automated tests here. For a production project I'd add Playwright for critical paths (login, create project, create task) at minimum.
 
 ---
 
